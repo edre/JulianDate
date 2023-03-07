@@ -45,11 +45,9 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 class WhereAmIComplicationProviderService : CoroutinesComplicationDataSourceService() {
-    private lateinit var locationViewModel: LocationViewModel
 
     override fun onCreate() {
         super.onCreate()
-        locationViewModel = LocationViewModel(applicationContext)
     }
 
     override suspend fun onComplicationUpdate(complicationRequest: ComplicationRequest) =
@@ -79,43 +77,17 @@ class WhereAmIComplicationProviderService : CoroutinesComplicationDataSourceServ
         }
     }
 
-    fun getTimeAgoComplicationText(fromTime: Instant): TimeDifferenceComplicationText.Builder {
-        return TimeDifferenceComplicationText.Builder(
-            TimeDifferenceStyle.SHORT_SINGLE_UNIT,
-            CountUpTimeReference(fromTime)
-        ).apply {
-            setMinimumTimeUnit(TimeUnit.MINUTES)
-            setDisplayAsNow(true)
-        }
-    }
-
-    fun getTimeAgoComplicationText(location: LocationResult): ComplicationText {
-        return if (location is ResolvedLocation) {
-            getTimeAgoComplicationText(Instant.ofEpochMilli(location.location.time)).build()
-        } else {
-            PlainComplicationText.Builder("--").build()
-        }
-    }
-
-    fun getAddressDescriptionText(location: LocationResult): ComplicationText {
-        return if (location is ResolvedLocation) {
-            return PlainComplicationText.Builder(getAddressDescription(location)).build()
-        } else {
-            PlainComplicationText.Builder(getString(R.string.no_location)).build()
-        }
-    }
-
     companion object {
         fun Context.forceComplicationUpdate() {
-            if (applicationContext.checkCallingOrSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                val request =
-                    ComplicationDataSourceUpdateRequester.create(
-                        applicationContext, ComponentName(
-                            applicationContext, WhereAmIComplicationProviderService::class.java
-                        )
-                    )
-                request.requestUpdateAll()
-            }
+//            if (applicationContext.checkCallingOrSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+//                val request =
+//                    ComplicationDataSourceUpdateRequester.create(
+//                        applicationContext, ComponentName(
+//                            applicationContext, WhereAmIComplicationProviderService::class.java
+//                        )
+//                    )
+//                request.requestUpdateAll()
+//            }
         }
     }
 }
