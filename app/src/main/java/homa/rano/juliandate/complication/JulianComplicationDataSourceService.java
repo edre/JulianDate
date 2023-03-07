@@ -1,4 +1,4 @@
-package com.google.wear.whereami.complication;
+package homa.rano.juliandate.complication;
 
 import android.os.RemoteException;
 import android.util.Log;
