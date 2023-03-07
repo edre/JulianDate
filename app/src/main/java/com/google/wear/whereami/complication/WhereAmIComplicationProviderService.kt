@@ -54,55 +54,26 @@ class WhereAmIComplicationProviderService : CoroutinesComplicationDataSourceServ
 
     override suspend fun onComplicationUpdate(complicationRequest: ComplicationRequest) =
         toComplicationData(
-            complicationRequest.complicationType,
-            locationViewModel.readLocationResult()
+            complicationRequest.complicationType
         )
 
     override fun getPreviewData(type: ComplicationType): ComplicationData {
-        val location = Location(LocationManager.GPS_PROVIDER)
-        location.longitude = 0.0
-        location.latitude = 0.0
-        val address = Address(Locale.ENGLISH)
-        address.countryName = "Null Island"
-
-        val locationResult = ResolvedLocation(location, address)
-
-        return toComplicationData(type, locationResult)
+        return toComplicationData(type)
     }
 
     fun toComplicationData(
-        type: ComplicationType,
-        locationResult: LocationResult
+        type: ComplicationType
     ): ComplicationData {
         return when (type) {
             ComplicationType.SHORT_TEXT -> ShortTextComplicationData.Builder(
-                getTimeAgoComplicationText(locationResult),
-                getAddressDescriptionText(locationResult)
-            )
-                .setMonochromaticImage(
-                    MonochromaticImage.Builder(
-                        Icon.createWithResource(
-                            this,
-                            R.drawable.ic_my_location
-                        )
-                    ).build()
-                )
-                .setTapAction(tapAction())
-                .build()
+                PlainComplicationText.Builder(JulianComplicationText.getJulianDate(Instant.now()).substring(8,12)).build(),
+                PlainComplicationText.Builder("Julian Date").build(),
+            ).build()
             ComplicationType.LONG_TEXT -> LongTextComplicationData.Builder(
-                getAddressDescriptionText(locationResult),
-                getAddressDescriptionText(locationResult)
+                PlainComplicationText.Builder(JulianComplicationText.getJulianDate(Instant.now())).build(),
+                PlainComplicationText.Builder("Julian date").build(),
             )
-                .setTitle(getTimeAgoComplicationText(locationResult))
-                .setMonochromaticImage(
-                    MonochromaticImage.Builder(
-                        Icon.createWithResource(
-                            this,
-                            R.drawable.ic_my_location
-                        )
-                    ).build()
-                )
-                .setTapAction(tapAction())
+                //.setTitle()
                 .build()
             else -> throw IllegalArgumentException("Unexpected complication type $type")
         }

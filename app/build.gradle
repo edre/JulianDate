@@ -26,12 +26,12 @@ android {
 }
 
 dependencies {
-    implementation "com.google.android.gms:play-services-wearable:17.1.0"
+    implementation "com.google.android.gms:play-services-wearable:18.0.0"
     implementation "androidx.wear:wear:1.2.0"
     implementation "androidx.lifecycle:lifecycle-service:2.4.1"
     implementation "com.google.android.gms:play-services-maps:18.0.2"
-    implementation "androidx.wear.watchface:watchface-complications-data:1.1.0-alpha04"
-    implementation "androidx.wear.watchface:watchface-complications-data-source:1.1.0-alpha04"
+    implementation "androidx.wear.watchface:watchface-complications-data:1.1.1"
+    implementation "androidx.wear.watchface:watchface-complications-data-source:1.1.1"
     implementation "androidx.wear.watchface:watchface-complications-data-source-ktx:1.1.0-alpha04"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.1"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0"
