@@ -16,11 +16,6 @@ import androidx.wear.watchface.complications.datasource.ComplicationRequest;
 import java.time.Instant;
 
 public class JulianComplicationDataSourceService extends ComplicationDataSourceService {
-    public JulianComplicationDataSourceService() {
-        super();
-        Log.w("Service constructor", "xxx");
-    }
-
     public static String getJulianDate(@NonNull Instant instant) {
         long beats = instant.toEpochMilli() / 864 + 244058750000L;
         return (beats / 100000) + "\n." + (beats % 100000);
@@ -28,7 +23,6 @@ public class JulianComplicationDataSourceService extends ComplicationDataSourceS
 
     @Override
     public void onComplicationRequest(@NonNull ComplicationRequest request, @NonNull ComplicationRequestListener listener) {
-        Log.w("OnComplicationRequest", "xxx");
         try {
             listener.onComplicationData(getComplicationData(request.getComplicationType()));
         } catch (RemoteException exception) {}
