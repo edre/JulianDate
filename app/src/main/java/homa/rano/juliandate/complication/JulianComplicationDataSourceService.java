@@ -21,25 +21,28 @@ public class JulianComplicationDataSourceService extends ComplicationDataSourceS
         return (beats / 100000) + "\n." + (beats % 100000);
     }
 
-    @Override
-    public void onComplicationRequest(@NonNull ComplicationRequest request, @NonNull ComplicationRequestListener listener) {
-        try {
-            listener.onComplicationData(getComplicationData(request.getComplicationType()));
-        } catch (RemoteException exception) {}
-    }
-
     private static ComplicationData getComplicationData(@NonNull ComplicationType complicationType) {
         String jd = getJulianDate(Instant.now());
         PlainComplicationText label = new PlainComplicationText.Builder("Julian Date").build();
         switch (complicationType) {
             case SHORT_TEXT:
                 return new ShortTextComplicationData.Builder(
-                        new PlainComplicationText.Builder(jd.substring(8,12)).build(),label).build();
+                        new PlainComplicationText.Builder(jd.substring(8, 12)).build(), label)
+                        .build();
             case LONG_TEXT:
             default:
                 return new LongTextComplicationData.Builder(
-                        new PlainComplicationText.Builder(jd).build(),label).build();
+                        new PlainComplicationText.Builder(jd.substring(0, 12)).build(), label)
+                        //.setTapAction()
+                        .build();
         }
+    }
+
+    @Override
+    public void onComplicationRequest(@NonNull ComplicationRequest request, @NonNull ComplicationRequestListener listener) {
+        try {
+            listener.onComplicationData(getComplicationData(request.getComplicationType()));
+        } catch (RemoteException exception) {}
     }
 
     @Nullable

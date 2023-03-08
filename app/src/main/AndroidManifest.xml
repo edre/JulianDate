@@ -6,7 +6,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_my_location"
+        android:icon="@drawable/ic_astro"
         android:label="Julian Date"
         android:supportsRtl="true"
         android:theme="@android:style/Theme.DeviceDefault">
@@ -22,7 +22,7 @@
 
         <service
             android:name=".complication.JulianComplicationDataSourceService"
-            android:icon="@drawable/ic_my_location"
+            android:icon="@drawable/ic_astro"
             android:label="Julian Date"
             android:permission="com.google.android.wearable.permission.BIND_COMPLICATION_PROVIDER">
             <intent-filter>
