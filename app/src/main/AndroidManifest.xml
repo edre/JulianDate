@@ -37,16 +37,16 @@
                 android:value="300" />
         </service>
 
-<!--        <activity-->
-<!--            android:name=".WhereAmIActivity"-->
-<!--            android:label="@string/title_activity_where_am_i"-->
-<!--            android:exported="true">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
+        <activity
+            android:name=".JulianActivity"
+            android:label="Julian Clock"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-<!--        </activity>-->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
